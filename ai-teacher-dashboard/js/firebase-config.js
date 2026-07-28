@@ -17,14 +17,24 @@
 //    SETUP_GUIDE.md at the root of this project.
 // ============================================================
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY_HERE",
-  authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSyCk02KegaPtYWd6KoH_hI9hx-pCr0zYjck",
+  authDomain: "ai-teacher-tools-1c6f3.firebaseapp.com",
+  databaseURL: "https://ai-teacher-tools-1c6f3-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ai-teacher-tools-1c6f3",
+  storageBucket: "ai-teacher-tools-1c6f3.firebasestorage.app",
+  messagingSenderId: "966466300018",
+  appId: "1:966466300018:web:d4d6277ec5d16eb903baeb"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 // ------------------------------------------------------------
 // ADMIN EMAILS
