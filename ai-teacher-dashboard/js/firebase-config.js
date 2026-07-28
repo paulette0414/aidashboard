@@ -1,28 +1,14 @@
 // ============================================================
-// FIREBASE CONFIGURATION  —  EDIT THIS FILE FIRST
+// FIREBASE CONFIGURATION
 // ------------------------------------------------------------
-// 1. Go to https://console.firebase.google.com and create a
-//    free project (the Spark/free plan is enough, no credit
-//    card required).
-// 2. Project settings (gear icon) > General > "Your apps" >
-//    Add app > Web (</> icon). Register the app.
-// 3. Firebase will show you a firebaseConfig object. Copy each
-//    value into the object below, replacing the placeholders.
-// 4. In the left menu, open:
-//      Build > Authentication > Get started > Sign-in method
-//      > Email/Password > Enable > Save
-//    Build > Firestore Database > Create database
-//      (choose "Start in production mode", any region)
-// 5. Full walkthrough with screensh<->step numbers is in
-//    SETUP_GUIDE.md at the root of this project.
+// This file uses the Firebase "compat" SDK (loaded via <script>
+// tags in index.html / dashboard.html / etc.), so it must NOT
+// contain any `import ...` statements or `initializeApp(...)`
+// calls from the modular SDK snippet Firebase's console shows
+// by default. Only the firebaseConfig object below should be
+// pasted in from your Firebase project.
 // ============================================================
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCk02KegaPtYWd6KoH_hI9hx-pCr0zYjck",
   authDomain: "ai-teacher-tools-1c6f3.firebaseapp.com",
@@ -32,9 +18,6 @@ const firebaseConfig = {
   messagingSenderId: "966466300018",
   appId: "1:966466300018:web:d4d6277ec5d16eb903baeb"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 // ------------------------------------------------------------
 // ADMIN EMAILS
