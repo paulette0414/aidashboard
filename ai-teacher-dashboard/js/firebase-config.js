@@ -9,12 +9,6 @@
 // pasted in from your Firebase project.
 // ============================================================
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCk02KegaPtYWd6KoH_hI9hx-pCr0zYjck",
   authDomain: "ai-teacher-tools-1c6f3.firebaseapp.com",
@@ -24,9 +18,6 @@ const firebaseConfig = {
   messagingSenderId: "966466300018",
   appId: "1:966466300018:web:d4d6277ec5d16eb903baeb"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 // ------------------------------------------------------------
 // ADMIN EMAILS
