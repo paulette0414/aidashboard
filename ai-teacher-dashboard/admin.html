@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Approvals — AI Generator Apps for Teachers</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo-badge">AI</div>
+      <div class="brand-text">
+        <strong>AI Generator Apps</strong>
+        <span>for Teachers</span>
+      </div>
+    </div>
+
+    <nav>
+      <span class="section-label">Menu</span>
+      <a href="dashboard.html"><span class="ic">🏠</span> Dashboard</a>
+      <a href="tools/lesson-plan-generator.html"><span class="ic">📘</span> Lesson Plan Generator</a>
+      <a href="tools/quiz-generator.html"><span class="ic">📝</span> Quiz / Test Generator</a>
+
+      <span class="section-label">Account</span>
+      <a id="navAdminLink" href="admin.html" class="active"><span class="ic">🛡️</span> Admin Approvals</a>
+      <a href="#"><span class="ic">📖</span> Guide</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" id="chipAvatar">A</div>
+        <div class="who">
+          <strong id="chipName">Admin</strong>
+          <span id="chipEmail">—</span>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Admin Approvals</h1>
+        <div class="subtitle">I-manage ang mga sign-up requests ng mga teacher.</div>
+      </div>
+      <div class="date-pill" id="todayLabel">—</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card orange">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-label">Pending Approval</div>
+        <div class="stat-value" id="pendingCount">0</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">✅</div>
+        <div class="stat-label">Approved Teachers</div>
+        <div class="stat-value" id="approvedCount">0</div>
+      </div>
+      <div class="stat-card pink">
+        <div class="stat-icon">⛔</div>
+        <div class="stat-label">Rejected</div>
+        <div class="stat-value" id="rejectedCount">0</div>
+      </div>
+    </div>
+
+    <div class="card-panel">
+      <h2>⏳ Pending Requests</h2>
+      <div class="hint">Bagong sign-up na naghihintay ng approval.</div>
+      <table class="admin-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Date Requested</th><th>Actions</th></tr></thead>
+        <tbody id="pendingBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card-panel">
+      <h2>✅ Approved Teachers</h2>
+      <div class="hint">May access na sa dashboard at mga AI tools.</div>
+      <table class="admin-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Date Requested</th><th>Actions</th></tr></thead>
+        <tbody id="approvedBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card-panel">
+      <h2>⛔ Rejected</h2>
+      <div class="hint">Hindi pinayagang makapasok. Puwede pang i-approve muli.</div>
+      <table class="admin-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Date Requested</th><th>Actions</th></tr></thead>
+        <tbody id="rejectedBody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  document.getElementById("todayLabel").textContent = todayLabel();
+
+  guardPage({
+    requireAdmin: true,
+    onReady: () => {
+      loadUsers();
+    }
+  });
+</script>
+</body>
+</html>

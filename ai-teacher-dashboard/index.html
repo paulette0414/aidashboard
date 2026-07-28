@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — AI Generator Apps for Teachers</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <div class="logo-badge">AI</div>
+      <div>
+        <strong>AI Generator Apps</strong>
+        <span>for Teachers</span>
+      </div>
+    </div>
+
+    <!-- LOGIN PANE -->
+    <div id="loginPane">
+      <h1>Welcome back</h1>
+      <p class="auth-sub">Sign in with your school email to access your AI tools.</p>
+
+      <div id="loginAlert" class="alert"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginEmail">Email address</label>
+          <input type="email" id="loginEmail" placeholder="juan.delacruz@deped.gov.ph" required>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-primary">Sign In</button>
+      </form>
+
+      <p class="auth-switch">Wala pang account? <a href="#" id="showSignup">Mag-sign up</a></p>
+    </div>
+
+    <!-- SIGNUP PANE -->
+    <div id="signupPane" class="hidden">
+      <h1>Create your account</h1>
+      <p class="auth-sub">Mag-sign up gamit ang iyong email. Kakailanganin ng approval ng admin bago makapasok.</p>
+
+      <div id="signupAlert" class="alert"></div>
+
+      <form id="signupForm">
+        <div class="field">
+          <label for="signupName">Full name</label>
+          <input type="text" id="signupName" placeholder="Juan Dela Cruz" required>
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email address</label>
+          <input type="email" id="signupEmail" placeholder="juan.delacruz@deped.gov.ph" required>
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="Min. 6 characters" required>
+        </div>
+        <div class="field">
+          <label for="signupConfirm">Confirm password</label>
+          <input type="password" id="signupConfirm" placeholder="Ulitin ang password" required>
+        </div>
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+
+      <p class="auth-switch">May account ka na? <a href="#" id="showLogin">Mag-sign in</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Firebase SDKs (compat build — no build tools needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

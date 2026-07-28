@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — AI Generator Apps for Teachers</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo-badge">AI</div>
+      <div class="brand-text">
+        <strong>AI Generator Apps</strong>
+        <span>for Teachers</span>
+      </div>
+    </div>
+
+    <nav>
+      <span class="section-label">Menu</span>
+      <a href="dashboard.html" class="active"><span class="ic">🏠</span> Dashboard</a>
+      <a href="tools/lesson-plan-generator.html"><span class="ic">📘</span> Lesson Plan Generator</a>
+      <a href="tools/quiz-generator.html"><span class="ic">📝</span> Quiz / Test Generator</a>
+
+      <span class="section-label">Account</span>
+      <a id="navAdminLink" href="admin.html" class="hidden"><span class="ic">🛡️</span> Admin Approvals</a>
+      <a href="#"><span class="ic">📖</span> Guide</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" id="chipAvatar">T</div>
+        <div class="who">
+          <strong id="chipName">Teacher</strong>
+          <span id="chipEmail">—</span>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Teacher Dashboard</h1>
+        <div class="subtitle">Mabilis, tumpak, at handa para sa iyong klase.</div>
+      </div>
+      <div class="date-pill" id="todayLabel">—</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card orange">
+        <div class="stat-icon">🧰</div>
+        <div class="stat-label">AI Tools Available</div>
+        <div class="stat-value">2</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-icon">🚧</div>
+        <div class="stat-label">Coming Soon</div>
+        <div class="stat-value">2</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">✅</div>
+        <div class="stat-label">Account Status</div>
+        <div class="stat-value">Approved</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-icon">👤</div>
+        <div class="stat-label">Signed in as</div>
+        <div class="stat-value" id="roleValue">Teacher</div>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <h2>Your AI Generator Tools</h2>
+      <span class="hint">I-click ang isang tool para simulan</span>
+    </div>
+
+    <div class="tool-grid">
+      <a class="tool-card" href="tools/lesson-plan-generator.html">
+        <div class="icon-badge blue">📘</div>
+        <div class="tool-body">
+          <h3>Lesson Plan Generator</h3>
+          <p>Gumawa ng Daily/Weekly Lesson Plan o DLL base sa subject, grade level, at learning competencies.</p>
+          <span class="tool-link">Open Tool →</span>
+        </div>
+      </a>
+
+      <a class="tool-card" href="tools/quiz-generator.html">
+        <div class="icon-badge orange">📝</div>
+        <div class="tool-body">
+          <h3>Quiz / Test Generator</h3>
+          <p>Gumawa ng test questions, quizzes, at answer keys base sa iyong topic at difficulty level.</p>
+          <span class="tool-link">Open Tool →</span>
+        </div>
+      </a>
+
+      <div class="tool-card disabled">
+        <div class="icon-badge muted">🗒️</div>
+        <div class="tool-body">
+          <h3>Worksheet Generator <span class="badge-soon">Coming Soon</span></h3>
+          <p>Gumawa ng activity sheets o worksheets para sa mga estudyante.</p>
+        </div>
+      </div>
+
+      <div class="tool-card disabled">
+        <div class="icon-badge muted">📊</div>
+        <div class="tool-body">
+          <h3>Rubric Generator <span class="badge-soon">Coming Soon</span></h3>
+          <p>Gumawa ng grading rubrics para sa mga project o performance task.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById("todayLabel").textContent = todayLabel();
+
+  guardPage({
+    onReady: ({ profile }) => {
+      document.getElementById("roleValue").textContent =
+        profile.role === "admin" ? "Admin" : "Teacher";
+    }
+  });
+</script>
+</body>
+</html>

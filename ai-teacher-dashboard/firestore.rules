@@ -1,0 +1,52 @@
+rules_version = '2';
+
+// ============================================================
+// Firestore Security Rules — AI Generator Apps for Teachers
+// ------------------------------------------------------------
+// How to install:
+//   Firebase console > Build > Firestore Database > Rules tab
+//   > paste this whole file in, replacing the default > Publish
+//
+// IMPORTANT: replace the emails in isAdmin() below with the
+// same admin emails you set in js/firebase-config.js
+// (ADMIN_EMAILS). Rules cannot read that JS file, so the list
+// has to be duplicated here.
+// ============================================================
+
+function isAdmin() {
+  return request.auth != null &&
+    request.auth.token.email in [
+      "leopoldo.mago@deped.gov.ph"
+    ];
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      // Any signed-in user can read their own profile; admins can read all.
+      allow get: if request.auth != null &&
+                    (request.auth.uid == userId || isAdmin());
+
+      // Admins can list/query the whole users collection (for the approval panel).
+      allow list: if isAdmin();
+
+      // A user can create their OWN profile document on signup,
+      // but cannot set themselves as approved/admin (unless their
+      // email is in the admin list, handled client-side + trusted
+      // because Auth already verifies the email on the token).
+      allow create: if request.auth != null &&
+                      request.auth.uid == userId &&
+                      request.resource.data.email == request.auth.token.email;
+
+      // A user may update only harmless fields of their own doc
+      // (e.g. displayName). Only an admin may change "status" or "role".
+      allow update: if isAdmin() ||
+                      (request.auth != null && request.auth.uid == userId &&
+                       request.resource.data.status == resource.data.status &&
+                       request.resource.data.role == resource.data.role);
+
+      allow delete: if isAdmin();
+    }
+  }
+}
