@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
 <title>ILAW Lesson Plan Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  html{ color-scheme: dark; }
   :root{
     --bg-1:#141833; --bg-2:#1C2247; --panel:#20264C; --panel-2:#262D57;
     --line: rgba(240,180,41,0.16); --line-strong: rgba(240,180,41,0.32);
@@ -55,6 +57,7 @@
   select:focus, input:focus, textarea:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(240,180,41,0.14); }
   textarea{ resize:vertical; min-height:56px; }
   select{ cursor:pointer; }
+  select option{ background:var(--panel); color:var(--text); }
   ::placeholder{ color:var(--text-faint); }
 
   .btn{ width:100%; margin-top:4px; background:linear-gradient(180deg, var(--gold-soft), var(--gold)); color:#241a04; border:none;
@@ -122,7 +125,7 @@
   .app-footer{ text-align:center; font-size:11px; color:var(--text-faint); padding:16px; border-top:1px solid var(--line); }
 
   /* ---- Official document-style output (mirrors the real ILAW DLL Word template) ---- */
-  .doc-wrap{ background:#fff; color:#111; border-radius:10px; padding:26px 28px; font-family:'Calibri','Segoe UI',Arial,sans-serif; }
+  .doc-wrap{ color-scheme:light; background:#fff; color:#111; border-radius:10px; padding:26px 28px; font-family:'Calibri','Segoe UI',Arial,sans-serif; }
   .doc-header{ text-align:center; margin-bottom:6px; }
   .doc-header img.doc-seal{ height:64px; vertical-align:middle; }
   .doc-header img.doc-wordmark{ height:50px; vertical-align:middle; margin-left:14px; }
@@ -138,6 +141,7 @@
   .doc-editable:focus{ outline:1px dashed #999; background:#fffdf0; }
   .doc-rubric-table td{ font-size:11.5px; }
   .doc-rubric-table select{ background:#fff; color:#111; border:1px solid #999; font-size:11px; padding:4px; }
+  .doc-rubric-table select option{ background:#fff; color:#111; }
   .doc-rubric-table .doc-editable{ min-height:30px; font-size:11.5px; }
   .doc-notes .doc-editable{ min-height:70px; }
   .doc-section-title{ font-weight:700; text-align:center; margin:18px 0 8px; font-size:13px; color:#111; }

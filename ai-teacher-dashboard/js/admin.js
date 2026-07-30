@@ -8,7 +8,7 @@ function renderRows(tbodyId, docs, kind) {
 
   if (docs.length === 0) {
     const emptyRow = document.createElement("tr");
-    emptyRow.innerHTML = `<td colspan="4" class="empty-note">Walang laman sa listahan na ito.</td>`;
+    emptyRow.innerHTML = `<td colspan="5" class="empty-note">Walang laman sa listahan na ito.</td>`;
     tbody.appendChild(emptyRow);
     return;
   }
@@ -32,10 +32,15 @@ function renderRows(tbodyId, docs, kind) {
       actionsHtml = `<button class="btn-approve" data-uid="${doc.id}" data-action="approve">Approve</button>`;
     }
 
+    const receiptHtml = data.receiptImageBase64
+      ? `<button class="receipt-badge has-receipt" data-receipt-uid="${doc.id}">🧾 Tingnan</button>`
+      : `<button class="receipt-badge no-receipt" disabled>Wala pa</button>`;
+
     tr.innerHTML = `
       <td><strong>${escapeHtml(data.name || "—")}</strong></td>
       <td>${escapeHtml(data.email || "—")}</td>
       <td>${createdAt}</td>
+      <td>${receiptHtml}</td>
       <td class="row-actions">${actionsHtml}</td>
     `;
     tbody.appendChild(tr);
@@ -44,7 +49,35 @@ function renderRows(tbodyId, docs, kind) {
   tbody.querySelectorAll("button[data-action]").forEach((btn) => {
     btn.addEventListener("click", () => handleAction(btn.dataset.uid, btn.dataset.action));
   });
+
+  tbody.querySelectorAll("button[data-receipt-uid]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const doc = docs.find((d) => d.id === btn.dataset.receiptUid);
+      const data = doc && doc.data();
+      if (data && data.receiptImageBase64) openReceiptModal(data.receiptImageBase64);
+    });
+  });
 }
+
+function openReceiptModal(dataUrl) {
+  const modal = document.getElementById("receiptModal");
+  const img = document.getElementById("receiptModalImg");
+  if (!modal || !img) return;
+  img.src = dataUrl;
+  modal.classList.remove("hidden");
+}
+
+function closeReceiptModal() {
+  const modal = document.getElementById("receiptModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("receiptModalClose");
+  const overlay = document.getElementById("receiptModal");
+  if (closeBtn) closeBtn.addEventListener("click", closeReceiptModal);
+  if (overlay) overlay.addEventListener("click", (e) => { if (e.target === overlay) closeReceiptModal(); });
+});
 
 async function handleAction(uid, action) {
   const status = action === "approve" ? "approved" : "rejected";

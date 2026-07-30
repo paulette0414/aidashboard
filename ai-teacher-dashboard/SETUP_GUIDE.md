@@ -133,6 +133,24 @@ Dalawang paraan para i-link ang mga ito:
   <iframe src="https://your-tool-url" style="width:100%;height:80vh;border:0;border-radius:12px;"></iframe>
   ```
 
+## 8. Pagbabago ng GCash QR code / bayad sa pending page
+
+Ang `pending.html` (yung "Nakabinbin ang iyong account" na screen pagkatapos
+mag-sign up) ay may kasamang GCash QR code at upload button para sa resibo
+ng pagbayad, bago ma-approve ng admin ang isang teacher.
+
+- **Palitan ang QR code:** i-save lang ang bago mong GCash/InstaPay QR bilang
+  `assets/gcash-qr.jpg` (parehong filename, papalitan ang luma).
+- **Palitan ang halaga:** buksan ang `pending.html`, hanapin ang linyang
+  `₱100.00 via GCash / InstaPay` sa loob ng `.qr-box`, at palitan ng tamang
+  halaga.
+- **Paano nakikita ng admin ang resibo:** sa `admin.html`, may bagong column
+  na "Resibo" sa Pending Requests table — i-click ang **"🧾 Tingnan"** para
+  makita ang na-upload na resibo bago i-Approve o i-Reject.
+- Ang resibo ay direktang naka-save sa Firestore kasama ng profile ng bawat
+  teacher (naka-compress muna sa browser bago i-upload), kaya walang
+  karagdagang Firebase Storage/Blaze plan na kailangan.
+
 ## Mga Tanong / Common Issues
 
 - **"Hindi pa na-set up ang Firebase config"** — kulang pa o mali ang laman
@@ -141,3 +159,7 @@ Dalawang paraan para i-link ang mga ito:
   ang admin (Step 5) at i-approve ang account sa Admin Approvals page.
 - **Gustong magdagdag ng ibang admin** — idagdag lang ang kanilang email sa
   parehong `ADMIN_EMAILS` (firebase-config.js) at `isAdmin()` (firestore.rules).
+- **"Masyadong malaki pa rin ang larawan" pag nag-a-upload ng resibo** —
+  awtomatikong nire-resize/compress ang larawan sa browser, pero kung
+  sobrang laki/resolution ng orihinal na screenshot, subukan ng mas simpleng
+  screenshot (hal. crop lang ang mahalagang parte) at i-upload ulit.
