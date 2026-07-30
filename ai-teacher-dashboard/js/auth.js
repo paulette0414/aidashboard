@@ -64,12 +64,14 @@ if (loginForm) {
 
       if (!snap.exists) {
         // Safety net: create a pending profile if one is somehow missing
+        const isAdmin = isAdminEmail(email);
         await db.collection("users").doc(uid).set({
           name: cred.user.displayName || email.split("@")[0],
           email: email,
-          status: isAdminEmail(email) ? "approved" : "pending",
-          role: isAdminEmail(email) ? "admin" : "teacher",
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          status: isAdmin ? "approved" : "pending",
+          role: isAdmin ? "admin" : "teacher",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          ...(isAdmin ? { approvedAt: firebase.firestore.FieldValue.serverTimestamp() } : {})
         });
       }
 
@@ -130,7 +132,8 @@ if (signupForm) {
         email: email,
         status: admin ? "approved" : "pending",
         role: admin ? "admin" : "teacher",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        ...(admin ? { approvedAt: firebase.firestore.FieldValue.serverTimestamp() } : {})
       });
 
       if (admin) {

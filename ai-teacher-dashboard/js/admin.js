@@ -8,7 +8,7 @@ function renderRows(tbodyId, docs, kind) {
 
   if (docs.length === 0) {
     const emptyRow = document.createElement("tr");
-    emptyRow.innerHTML = `<td colspan="5" class="empty-note">Walang laman sa listahan na ito.</td>`;
+    emptyRow.innerHTML = `<td colspan="6" class="empty-note">Walang laman sa listahan na ito.</td>`;
     tbody.appendChild(emptyRow);
     return;
   }
@@ -36,10 +36,13 @@ function renderRows(tbodyId, docs, kind) {
       ? `<button class="receipt-badge has-receipt" data-receipt-uid="${doc.id}">🧾 Tingnan</button>`
       : `<button class="receipt-badge no-receipt" disabled>Wala pa</button>`;
 
+    const daysHtml = kind === "approved" ? daysSinceApprovedHtml(data.approvedAt) : "—";
+
     tr.innerHTML = `
       <td><strong>${escapeHtml(data.name || "—")}</strong></td>
       <td>${escapeHtml(data.email || "—")}</td>
       <td>${createdAt}</td>
+      <td>${daysHtml}</td>
       <td>${receiptHtml}</td>
       <td class="row-actions">${actionsHtml}</td>
     `;
@@ -57,6 +60,21 @@ function renderRows(tbodyId, docs, kind) {
       if (data && data.receiptImageBase64) openReceiptModal(data.receiptImageBase64);
     });
   });
+}
+
+function daysSinceApprovedHtml(approvedAt) {
+  if (!approvedAt || !approvedAt.toDate) {
+    return `<span style="color:var(--text-muted);">—</span>`;
+  }
+  const approvedDate = approvedAt.toDate();
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const days = Math.floor((Date.now() - approvedDate.getTime()) / msPerDay);
+
+  if (days <= 0) {
+    return `<span class="status-pill approved">Bagong-approve</span>`;
+  }
+  const label = days === 1 ? "1 araw" : `${days} araw`;
+  return `<span class="status-pill ${days > 30 ? "rejected" : "approved"}">${label}</span>`;
 }
 
 function openReceiptModal(dataUrl) {
@@ -81,8 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function handleAction(uid, action) {
   const status = action === "approve" ? "approved" : "rejected";
+  const update = { status };
+  if (action === "approve") {
+    // Stamp/refresh the approval date every time a user is (re-)approved,
+    // so "days since approved" always counts from the most recent approval.
+    update.approvedAt = firebase.firestore.FieldValue.serverTimestamp();
+  }
   try {
-    await db.collection("users").doc(uid).update({ status });
+    await db.collection("users").doc(uid).update(update);
     await loadUsers();
   } catch (err) {
     console.error(err);
