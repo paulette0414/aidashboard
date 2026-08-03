@@ -150,6 +150,11 @@ ng pagbayad, bago ma-approve ng admin ang isang teacher.
 - Ang resibo ay direktang naka-save sa Firestore kasama ng profile ng bawat
   teacher (naka-compress muna sa browser bago i-upload), kaya walang
   karagdagang Firebase Storage/Blaze plan na kailangan.
+- Sa Approved Teachers table, may column na **"Araw mula sa Approval"** —
+  nagbibilang ito mula sa huling pagka-approve ng account (nag-a-update ito
+  tuwing i-re-approve mo, hal. pagkatapos mag-Revoke). Berde ang pill
+  habang 30 araw pababa, at pula na kapag lagpas 30 araw — magandang
+  paalala kung monthly ang bayad at oras na para mag-renew.
 
 ## Mga Tanong / Common Issues
 
